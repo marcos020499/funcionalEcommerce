@@ -31,5 +31,4 @@ export const Block = style.div`
 `;
 export const Total = style.div`
     font-size: 36px;
-    margin: -50vw 0 0 0;
 `;

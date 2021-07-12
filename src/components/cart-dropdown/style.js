@@ -10,7 +10,7 @@ export const CartDropdowns = styled.div`
   border: 1px solid black;
   background-color: white;
   top: 90px;
-  right: 40px;
+  right: 20px;
   z-index: 5;
 `;
 export const CartItems = styled.div`

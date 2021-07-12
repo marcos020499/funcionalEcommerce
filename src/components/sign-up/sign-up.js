@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import CustomButton from "../custom-button/Custom-button";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   auth,
   createUserProfileDocument,
 } from "../../components/firebase/firebase";
 import { ContainerSignUp } from "./style";
 import FormInput from "../form-input/form-input";
+toast.configure();
 
 function SingUp() {
   const [DisplayName, setDisplayName] = useState("");
@@ -26,31 +28,30 @@ function SingUp() {
   const handleOnChangeConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
   };
-  const onSubmit =
-    ((event) => {
-      event.preventDefault();
-      const fetchData = async () => {
-        if (Password !== ConfirmPassword) {
-          alert("Passwords don't match");
-          return;
-        }
-        try {
-          const { user } = await auth.createUserWithEmailAndPassword(
-            Email,
-            Password
-          );
-          await createUserProfileDocument(user, { DisplayName }).then(
-            () => setDisplayName(""),
-            setEmail(""),
-            setPasswrod(""),
-            setConfirmPassword([])
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      };
-    },
-    []);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (Password !== ConfirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    try {
+      const { users } = await auth.createUserWithEmailAndPassword(
+        Email,
+        Password
+      );
+      await createUserProfileDocument(users, { DisplayName }).then(
+        () => (
+          setDisplayName(""),
+          setEmail(""),
+          setPasswrod(""),
+          setConfirmPassword("")
+        ),
+        toast.success(`bienvenid@ ${DisplayName}`)
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <ContainerSignUp>
       <h2 className="title">I do not have an account</h2>

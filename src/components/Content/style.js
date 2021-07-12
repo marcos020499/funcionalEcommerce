@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { Carousel } from "3d-react-carousal";
 export const ContainerContent = styled.div`
-  display: flex;
-  margin: 0 5vw 0 5vw;
+  margin: 0 2vw 0 2vw;
   @media screen and (max-width: 768px) {
     display: inline-block;
-    margin: 1.5vw;
   }
 `;
 export const H3 = styled.h3`
@@ -13,22 +11,27 @@ export const H3 = styled.h3`
     font-size: 3.3vw;
   }
 `;
+export const TitleItem = styled.h3`
+  color: blue;
+  @media screen and (max-width: 768px) {
+    font-size: 3.3vw;
+}
+`;
 export const Card = styled.div`
   display: inline-block;
   justify-content: center;
   border: 1px solid black;
-  width: 29vw;
-  padding: 1.7vw;
-  margin: 0.3vw;
+  width: 26%;
+  padding: 1.4vw;
+  margin: 1.8vw;
   background: linear-gradient(white, gray);
   transition: width 1s, height 1s, transform 1s;
   &:hover {
     transform: scale(1.05);
   }
   @media screen and (max-width: 768px) {
-    display: inline-block;
-    width: 42vw;
-    margin: 1vw;
+    margin: 1.8vw;
+    width: 42%;
   }
 `;
 export const Image = styled.img`

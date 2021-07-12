@@ -7,7 +7,7 @@ import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import { Icon, LinkCount, ShoppingIconCart } from "./style";
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
   <Icon onClick={toggleCartHidden}>
-    <ShoppingIconCart />
+    <ShoppingIconCart className="fa fa-shopping-bag" />
     <LinkCount> {itemCount} </LinkCount>
   </Icon>
 );

@@ -39,7 +39,7 @@ export const Linke = styled(Link)``;
 export const ImageHeader = styled.img`
   max-width: 100%;
   @media screen and (max-width: 768px) {
-    height: 30vw;
+    height: 40vw;
     margin-top: -12vw;
   }
 `;

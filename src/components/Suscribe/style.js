@@ -15,7 +15,7 @@ export const ContainerSuscribe = styled.div`
   @media screen and (max-width: 768px) {
     width: 80vw;
     margin: 0 8vw 0 8vw;
-    height: 22vw;
+    height: 30vw;
   }
 `;
 export const H2 = styled.h2`
@@ -24,8 +24,8 @@ export const H2 = styled.h2`
   margin: 2vw 10vw 2vw 10vw;
   padding: 2vw;
   color: #ccff00;
-  background: linear-gradient(gray, gray) @media screen and (max-width: 768px) {
-    font-size: 5vw;
+  @media screen and (max-width: 768px) {
+    font-size: 3.8vw;
   }
 `;
 export const ButtonDiv = styled.div`
@@ -39,11 +39,19 @@ export const Image = styled.li`
     color: rgb(45, 2, 113);
   }
 `;
-export const Linken = styled(Link)`
+export const Linken = styled.a`
   font-size: 2vw;
   padding: 0 2vw 2vw 2vw;
   @media screen and (max-width: 768px) {
     font-size: 6vw;
+    justify-content: space-between;
+  }
+`;
+export const Linken1 = styled(Link)`
+  font-size: 2vw;
+  padding: 0 2vw 2vw 2vw;
+  @media screen and (max-width: 768px) {
+    font-size: 5vw;
     justify-content: space-between;
   }
 `;

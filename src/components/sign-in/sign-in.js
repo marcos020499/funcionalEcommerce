@@ -5,8 +5,12 @@ import { auth, signInWithGoogle } from "../../components/firebase/firebase";
 import CustomButton from "../custom-button/Custom-button";
 import { useState } from "react";
 import { ContainerSignIn, GoogleButton } from "./style";
-
+import { toast } from "react-toastify";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 function SingIn() {
+  let history = useHistory();
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -21,13 +25,21 @@ function SingIn() {
     try {
       await auth
         .signInWithEmailAndPassword(Email, Password)
-        .then(() => setEmail(""), setPassword(""), console.log("exito"));
+        .then(
+          () => setEmail(""),
+          setPassword(""),
+          history.push("/userAuth"),
+          toast.success(`bienvenid@ ${Email}`)
+        );
     } catch (err) {
       console.error(err);
     }
   };
   return (
     <ContainerSignIn>
+      <Link to="/signinAdmin">
+        <CustomButton>Are you admin?</CustomButton>
+      </Link>
       <h2>I already have an account</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>

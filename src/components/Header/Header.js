@@ -26,9 +26,9 @@ const index = ({ hidden }) => (
     </Linke>
     <ContainerNavbar>
       <Linken to="/">SHOP</Linken>
-      <Linken to="/shop">ABOUT</Linken>
+      <Linken to="/about">ABOUT</Linken>
       <Linken to="/contact">CONTACT</Linken>
-      <Linken to="/singin" className="fa fa-user"></Linken>
+      <Linken to="/signin" className="fa fa-user"></Linken>
       <CartIcon />
       {hidden ? null : <CartDropdown />}
     </ContainerNavbar>

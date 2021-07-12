@@ -4,7 +4,8 @@ import CustomButton from "../custom-button/Custom-button";
 import { addItem } from "../../redux/cart/cart.actions.js";
 import { useEffect, useState } from "react";
 import firebase from "../firebase/firebase";
-import { ContainerContent, Card, Image, Carousels } from "./style";
+import { Link } from "react-router-dom";
+import { ContainerContent, Card, Image, Carousels, H3, TitleItem} from "./style";
 
 const useItems = () => {
   const [item, setItem] = useState([]);
@@ -22,30 +23,39 @@ const useItems = () => {
   }, []);
   return item;
 };
+
 const ItemList = ({ item, addItem }) => {
   const listItem = useItems();
   return (
     <ContainerContent>
       {listItem.map((item) => (
-        <Card key={item.id}>
-          <h3 style={{ color: "blue" }}>{item.title}</h3>
-          <h3>{item.price}</h3>
-          <h3>{item.description}</h3>
-          <Carousels
-            slides={[
-              <Image src={item.images[0]} alt="shoes" />,
-              <Image src={item.images[1]} alt="shoes" />,
-              <Image src={item.images[2]} alt="shoes" />,
-              <Image src={item.images[3]} alt="shoes" />,
-            ]}
-            autoplay={true}
-            interval={2300}
-          />
-          <h3>{item.quantity}</h3>
-          <CustomButton onClick={() => addItem(item)} inverted>
-            Add to cart
-          </CustomButton>
-        </Card>
+          <Card key={item.id}>
+            <Link to={`/details/${item.id}`}>
+            <TitleItem>{item.title}</TitleItem>
+            <H3>{item.price}</H3>
+            <H3>{item.description}</H3>
+            <Carousels
+              slides={[
+                <Image src={item.images[0]} alt="shoes" />,
+                <Image src={item.images[1]} alt="shoes" />,
+                <Image src={item.images[2]} alt="shoes" />,
+                <Image src={item.images[3]} alt="shoes" />,
+              ]}
+              autoplay={true}
+              interval={2300}
+            />
+            <H3>{item.quantity}</H3>
+            </Link>
+            <CustomButton
+              onClick={() => {
+                const add1 = addItem(item);
+                add1();
+              }}
+              inverted
+            >
+              Add to cart
+            </CustomButton>
+          </Card>
       ))}
     </ContainerContent>
   );

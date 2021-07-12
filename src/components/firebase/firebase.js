@@ -3,7 +3,7 @@ import firebaseConfig from "./config";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
-const settings = { timestampsInSnapshots: true };
+const settings = { timestampsInSnapshots: true, merge: true };
 firebase.initializeApp(firebaseConfig);
 
 firebase.firestore().settings(settings);
