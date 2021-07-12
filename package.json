@@ -1,5 +1,5 @@
 {
-  "homepage":"https://marcos020499.github.io/funcionalEcommerce/",
+  "homepage": "https://marcos020499.github.io/funcionalEcommerce/",
   "name": "ecommerce",
   "version": "1.0.0",
   "main": "src/index.js",
@@ -43,6 +43,7 @@
     "firebase": "8.6.8",
     "font-awesome": "4.7.0",
     "gh-pages": "3.2.3",
+    "html-webpack-plugin": "5.3.2",
     "kea": "^2.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
