@@ -42,6 +42,9 @@ module.exports = {
     publicPath: "http://localhost:3000/dist/",
     hotOnly: true,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  devtool: "eval-source-map",
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "public", "index.html"),
+    }),
+  ],
 };
