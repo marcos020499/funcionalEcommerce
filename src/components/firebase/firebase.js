@@ -3,6 +3,8 @@ import firebaseConfig from "./config";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
+import { toast } from "react-toastify";
+toast.configure()
 const settings = { timestampsInSnapshots: true, merge: true };
 firebase.initializeApp(firebaseConfig);
 
@@ -26,7 +28,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log("error creating user", error.message);
+      toast.error("error creating user", error.message);
     }
   }
   return userRef;

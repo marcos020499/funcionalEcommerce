@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Carousel } from "3d-react-carousal";
+import { Link } from "react-router-dom";
 export const ContainerContent = styled.div`
   margin: 0 2vw 0 2vw;
   @media screen and (max-width: 768px) {
@@ -7,15 +8,23 @@ export const ContainerContent = styled.div`
   }
 `;
 export const H3 = styled.h3`
+  text-decoration: none;
   @media screen and (max-width: 768px) {
     font-size: 3.3vw;
+    text-decoration: none;
+  }
+`;
+export const Linkk = styled(Link)`
+  text-decoration: none;
+  @media screen and (max-width: 768px) {
   }
 `;
 export const TitleItem = styled.h3`
   color: blue;
+  text-decoration: none;
   @media screen and (max-width: 768px) {
     font-size: 3.3vw;
-}
+  }
 `;
 export const Card = styled.div`
   display: inline-block;
@@ -24,6 +33,7 @@ export const Card = styled.div`
   width: 26%;
   padding: 1.4vw;
   margin: 1.8vw;
+  text-decoration: none;
   background: linear-gradient(white, gray);
   transition: width 1s, height 1s, transform 1s;
   &:hover {

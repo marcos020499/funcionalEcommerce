@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, HashRouter, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
@@ -28,24 +28,31 @@ import { selectCurrentUser } from "./redux/user/user.selector";
 
 toast.configure();
 const App = ({ currentUser }) => {
+
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    // auth.onAuthStateChanged will return a firebase.Unsubrcibe function
+    // which you can call to terminate the subscription
+    const unsubscribe = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot((snapShot) => {
+        userRef.onSnapshot(snapshot => {
           setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
+              id: snapshot.id,
+              ...snapshot.data()
+          })
         });
-      }
-      setCurrentUser(userAuth);
+
+      } 
+        setCurrentUser(userAuth);
     });
-    return () => {
-      unsubscribeFromAuth();
-    };
+
+   // return a clean up function that will call unsubscribe to -
+   // terminate the subscription when component unmounts
+   return () => { 
+     unsubscribe ()}
   }, []);
+
   return (
     <>
       <HashRouter>
@@ -55,23 +62,15 @@ const App = ({ currentUser }) => {
           <Route path="/contact" component={Contact} />
           <Route
             path="/signin"
-            render={() => (currentUser ? <Redirect to="/" /> : <Signin />)}
+            render={() => (currentUser  ? <Redirect to="/" /> : <Signin />)}
           />
           <Route
             path="/signinAdmin"
             render={() => (currentUser ? <Redirect to="/" /> : <SigninAdmin />)}
           />
           <Route
-            path="/checkout"
-            render={() =>
-              currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                ((<Checkout />),
-                toast.error("login to enter to shopping cart"),
-                (<Redirect to="/" />))
-              )
-            }
+            exact path="/checkout"
+            render={() => (currentUser? <Checkout />: <Redirect to="/" />)}
           />
           <Route path="/addProduct" component={AddProduct} />
           <Route path="/about" component={About} />

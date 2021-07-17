@@ -4,8 +4,15 @@ import CustomButton from "../custom-button/Custom-button";
 import { addItem } from "../../redux/cart/cart.actions.js";
 import { useEffect, useState } from "react";
 import firebase from "../firebase/firebase";
-import { Link } from "react-router-dom";
-import { ContainerContent, Card, Image, Carousels, H3, TitleItem} from "./style";
+import {
+  ContainerContent,
+  Card,
+  Image,
+  Carousels,
+  H3,
+  TitleItem,
+  Linkk,
+} from "./style";
 
 const useItems = () => {
   const [item, setItem] = useState([]);
@@ -29,8 +36,8 @@ const ItemList = ({ item, addItem }) => {
   return (
     <ContainerContent>
       {listItem.map((item) => (
-          <Card key={item.id}>
-            <Link to={`/details/${item.id}`}>
+        <Card key={item.id}>
+          <Linkk to={`/details/${item.id}`}>
             <TitleItem>{item.title}</TitleItem>
             <H3>{item.price}</H3>
             <H3>{item.description}</H3>
@@ -45,17 +52,17 @@ const ItemList = ({ item, addItem }) => {
               interval={2300}
             />
             <H3>{item.quantity}</H3>
-            </Link>
-            <CustomButton
-              onClick={() => {
-                const add1 = addItem(item);
-                add1();
-              }}
-              inverted
-            >
-              Add to cart
-            </CustomButton>
-          </Card>
+          </Linkk>
+          <CustomButton
+            onClick={() => {
+              const add1 = addItem(item);
+              add1();
+            }}
+            inverted
+          >
+            Add to cart
+          </CustomButton>
+        </Card>
       ))}
     </ContainerContent>
   );

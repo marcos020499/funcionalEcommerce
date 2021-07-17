@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import FormInput from "../form-input/form-input";
 import { auth, signInWithGoogle } from "../../components/firebase/firebase";
@@ -34,7 +34,8 @@ function SingIn() {
     } catch (err) {
       console.error(err);
     }
-  };
+    return handleSubmit
+  }
   return (
     <ContainerSignIn>
       <Link to="/signinAdmin">
