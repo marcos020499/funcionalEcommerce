@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Switch, Route, HashRouter, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-import {
-  auth,
-  createUserProfileDocument,
-} from "./components/firebase/firebase";
 import Home from "./pages/Homepage/Home";
 import Contact from "./pages/Contact/Contact";
 import Checkout from "./pages/checkout/checkout";
@@ -23,36 +19,10 @@ import EditProduct from "./pages/EditProduct/EditProduct";
 import Details from "./components/Details/index";
 
 import { createGlobalStyle } from "styled-components";
-import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
 
 toast.configure();
 const App = ({ currentUser }) => {
-
-  useEffect(() => {
-    // auth.onAuthStateChanged will return a firebase.Unsubrcibe function
-    // which you can call to terminate the subscription
-    const unsubscribe = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({
-              id: snapshot.id,
-              ...snapshot.data()
-          })
-        });
-
-      } 
-        setCurrentUser(userAuth);
-    });
-
-   // return a clean up function that will call unsubscribe to -
-   // terminate the subscription when component unmounts
-   return () => { 
-     unsubscribe ()}
-  }, []);
-
   return (
     <>
       <HashRouter>
@@ -62,15 +32,23 @@ const App = ({ currentUser }) => {
           <Route path="/contact" component={Contact} />
           <Route
             path="/signin"
-            render={() => (currentUser  ? <Redirect to="/" /> : <Signin />)}
+            render={() => (currentUser ? <Redirect to="/" /> : <Signin />)}
           />
           <Route
             path="/signinAdmin"
             render={() => (currentUser ? <Redirect to="/" /> : <SigninAdmin />)}
           />
           <Route
-            exact path="/checkout"
-            render={() => (currentUser? <Checkout />: <Redirect to="/" />)}
+            exact
+            path="/checkout"
+            render={() =>
+              currentUser ? (
+                <Checkout />
+              ) : (
+                (toast.success("sign in, to check shopping cart"),
+                (<Redirect to="/" />))
+              )
+            }
           />
           <Route path="/addProduct" component={AddProduct} />
           <Route path="/about" component={About} />

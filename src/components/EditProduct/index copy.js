@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
-import { Link, useParams } from "react-router-dom";
-import { Title, ContainerContact, Input, Button, InputMessage } from "./style";
+import { useParams } from "react-router-dom";
+import { Title, ContainerContact, Input, Button } from "./style";
 import { toast } from "react-toastify";
 toast.configure();
 const Show = () => {

@@ -1,4 +1,4 @@
-var firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyDfDOMsOGDkxXKsQWmaBTJ0KeOY8y7jjwc",
   authDomain: "boards-585b9.firebaseapp.com",
   projectId: "boards-585b9",
@@ -6,4 +6,3 @@ var firebaseConfig = {
   messagingSenderId: "1044202533897",
   appId: "1:1044202533897:web:0f052d6160e75f047cb4d8",
 };
-export default firebaseConfig;

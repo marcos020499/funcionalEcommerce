@@ -4,9 +4,9 @@ import FormInput from "../form-input/form-input";
 import firebase from "../../components/firebase/firebase";
 import CustomButton from "../custom-button/Custom-button";
 import { useState } from "react";
-import { ContainerSignIn, GoogleButton } from "./style";
+import { ContainerSignIn } from "./style";
 import { toast } from "react-toastify";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 function SingIn() {

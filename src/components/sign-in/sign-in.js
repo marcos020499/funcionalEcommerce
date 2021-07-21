@@ -1,41 +1,66 @@
 import React, { useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../form-input/form-input";
-import { auth, signInWithGoogle } from "../../components/firebase/firebase";
 import CustomButton from "../custom-button/Custom-button";
 import { useState } from "react";
 import { ContainerSignIn, GoogleButton } from "./style";
 import { toast } from "react-toastify";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-toast.configure();
-function SingIn() {
-  let history = useHistory();
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../redux/user/user.actions";
 
-  const handleOnChangeEmail = (e) => {
-    setEmail(e.target.value);
+toast.configure();
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+const SingIn = (props) => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector(mapState);
+  let history = useHistory();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const handleOnChangeemail = (e) => {
+    setemail(e.target.value);
   };
-  const handleOnChangePassword = (e) => {
-    setPassword(e.target.value);
+  const handleOnChangepassword = (e) => {
+    setpassword(e.target.value);
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      resetForm();
+      history.push("/userAuth"), toast.success(`bienvenid@ ${email}`);
+    }
+  }, [currentUser]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(emailSignInStart({ email, password }));
+  };
+  const handleGoogleSignIn = () => {
+    dispatch(googleSignInStart());
+  };
+  /*
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await auth
-        .signInWithEmailAndPassword(Email, Password)
+        .signInWithemailAndpassword(email, password)
         .then(
-          () => setEmail(""),
-          setPassword(""),
+          () => setemail(""),
+          setpassword(""),
           history.push("/userAuth"),
-          toast.success(`bienvenid@ ${Email}`)
+          toast.success(`bienvenid@ ${email}`)
         );
     } catch (err) {
       console.error(err);
     }
     return handleSubmit
-  }
+  }*/
   return (
     <ContainerSignIn>
       <Link to="/signinAdmin">
@@ -45,32 +70,31 @@ function SingIn() {
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
-          name="Email"
+          name="email"
           type="email"
-          handleChange={handleOnChangeEmail}
-          value={Email}
+          handleChange={handleOnChangeemail}
+          value={email}
           label="email"
           required
         />
 
         <FormInput
-          name="Password"
+          name="password"
           type="password"
-          value={Password}
-          handleChange={handleOnChangePassword}
+          value={password}
+          handleChange={handleOnChangepassword}
           label="password"
           required
         />
         <div className="buttons">
           <CustomButton type="submit"> Sign In </CustomButton>
-          <GoogleButton onClick={signInWithGoogle} isGoogleSignIn>
-            {" "}
-            Sign in with Google{" "}
-          </GoogleButton>
         </div>
       </form>
+      <GoogleButton onClick={handleGoogleSignIn}>
+        Sign in with Google
+      </GoogleButton>
     </ContainerSignIn>
   );
-}
+};
 
 export default SingIn;

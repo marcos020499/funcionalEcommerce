@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import firebase from "../firebase/firebase";
-import { Link } from "react-router-dom";
-import { Title, ContainerContact, Input, Button, InputMessage } from "./style";
+import { Title, ContainerContact, Input, Button } from "./style";
 
 const AddProducts = () => {
   const [title, setTitle] = useState("");

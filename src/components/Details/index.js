@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import "font-awesome/css/font-awesome.min.css";
 import Rating from "react-rating";
-import { Link, withRouter, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import firebase from "../firebase/firebase";
-import YoutubeEmbed from "../About/index";
+
 import {
   Content,
   ContainerImages,

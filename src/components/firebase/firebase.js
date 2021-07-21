@@ -1,41 +1,52 @@
-import firebase from "firebase";
-import firebaseConfig from "./config";
+import firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/storage";
 import "firebase/auth";
-import { toast } from "react-toastify";
-toast.configure()
-const settings = { timestampsInSnapshots: true, merge: true };
-firebase.initializeApp(firebaseConfig);
+import { firebaseConfig } from "./config";
 
-firebase.firestore().settings(settings);
+import { toast } from "react-toastify";
+toast.configure();
+
+firebase.initializeApp(firebaseConfig);
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+export const signInWithGoogle = new firebase.auth.GoogleAuthProvider();
+signInWithGoogle.setCustomParameters({ prompt: "select_account" });
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
+  const { uid } = userAuth;
 
-  const userRef = firebase.firestore().doc(`users/${userAuth.uid}`);
-  const snapShot = await userRef.get();
+  const userRef = firestore.doc(`users/${uid}`);
+  const snapshot = await userRef.get();
 
-  if (snapShot.exists === false) {
+  if (!snapshot.exists) {
     const { displayName, email } = userAuth;
-    const createdAt = new Date();
+    const timestamp = new Date();
+    const userRoles = ["user"];
 
     try {
       await userRef.set({
         displayName,
         email,
-        createdAt,
+        createdDate: timestamp,
+        userRoles,
         ...additionalData,
       });
-    } catch (error) {
-      toast.error("error creating user", error.message);
+    } catch (err) {
+      // console.log(err);
     }
   }
+
   return userRef;
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
-export const auth = firebase.auth();
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
 export default firebase;

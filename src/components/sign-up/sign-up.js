@@ -51,8 +51,9 @@ function SingUp() {
     } catch (err) {
       console.error(err);
     }
-    return () => { 
-      onSubmit ()}
+    return () => {
+      onSubmit();
+    };
   };
   return (
     <ContainerSignUp>

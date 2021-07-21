@@ -55,8 +55,8 @@ const ItemList = ({ item, addItem }) => {
           </Linkk>
           <CustomButton
             onClick={() => {
-              const add1 = addItem(item);
-              add1();
+              addItem(item);
+              item.quantity--;
             }}
             inverted
           >
