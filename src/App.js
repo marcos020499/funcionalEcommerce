@@ -50,11 +50,55 @@ const App = ({ currentUser }) => {
               )
             }
           />
-          <Route path="/addProduct" component={AddProduct} />
+          <Route
+            exact
+            path="/addProduct"
+            render={() =>
+              currentUser ? (
+                <AddProduct />
+              ) : (
+                (toast.success("yo dont have permisions"),
+                (<Redirect to="/" />))
+              )
+            }
+          />
           <Route path="/about" component={About} />
-          <Route path="/editProduct/:id" component={EditProduct} />
-          <Route path="/userAuth" component={userAuth} />
-          <Route path="/userAuthAdmin" component={userAuthAdmin} />
+          <Route
+            exact
+            path="/editProduct/:id"
+            render={() =>
+              currentUser ? (
+                <EditProduct />
+              ) : (
+                (toast.success("yo dont have permisions"),
+                (<Redirect to="/" />))
+              )
+            }
+          />
+          <Route
+            exact
+            path="/userAuth"
+            render={() =>
+              currentUser ? (
+                <userAuth />
+              ) : (
+                (toast.success("sign in, to enter to userAuth"),
+                (<Redirect to="/" />))
+              )
+            }
+          />
+          <Route
+            exact
+            path="/userAuthAdmin"
+            render={() =>
+              currentUser ? (
+                <userAuthAdmin />
+              ) : (
+                (toast.success("sign in, to enter to userAuth as admin"),
+                (<Redirect to="/" />))
+              )
+            }
+          />
           <Route path="/details/:id" component={Details} />
         </Switch>
         <Footer />

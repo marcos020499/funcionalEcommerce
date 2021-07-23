@@ -34,7 +34,8 @@ const SingIn = (props) => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      history.push("/userAuth"), toast.success(`bienvenid@ ${email}`);
+      history.push("/userAuth"), 
+      toast.success(`bienvenid@ ${email}`);
     }
   }, [currentUser]);
   const handleSubmit = (e) => {
